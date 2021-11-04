@@ -20,10 +20,10 @@ import javax.persistence.Id;
 public class Editorial {
     
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue  (strategy = GenerationType.IDENTITY)
     private String id;
+    
     @NotNull
-    @Column(unique=true)
     private String nombre;
     @NotNull
     private Boolean alta;

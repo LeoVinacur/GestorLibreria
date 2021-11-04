@@ -20,11 +20,7 @@ public class AutorController {
     @Autowired
     private RepositorioLibro repositorioLibro;
     
-    @GetMapping("/cargaAutor")
-public String formulario(){
- 
-return "cargar-autor";
-}
+   
 
 
     

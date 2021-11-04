@@ -8,7 +8,9 @@ package ProyectoLeo.gestorLibreria.servicios;
 import ProyectoLeo.gestorLibreria.entidades.Autor;
 import ProyectoLeo.gestorLibreria.errores.errorServicio;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioAutor;
+ 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -19,7 +21,8 @@ public class AutorServicio {
     
      private RepositorioAutor repoAutor;
     
-     public void ingresarAutor (String nombre) throws Exception{
+     @Transactional
+     public Autor ingresarAutor (String nombre) throws Exception{
         
         Autor autor = new Autor();
         
@@ -31,8 +34,12 @@ public class AutorServicio {
         
         repoAutor.save(autor);
         
+        
+        return null;
+        
     }
      
+     @Transactional
        public void modificarEditorial (String nombre) throws errorServicio{
        if (nombre == null || nombre.isEmpty()) {
              throw new errorServicio ("El nombre no puede estar vacío");
@@ -44,6 +51,7 @@ public class AutorServicio {
      }
    
      
+       @Transactional
      public void borrarAutor (String nombre) throws errorServicio{
           
             if (nombre == null || nombre.isEmpty()) {
@@ -54,10 +62,11 @@ public class AutorServicio {
             
      }
      
-     public void buscarAutor (String nombre){
-      
-      repoAutor.buscarPorNombre(nombre);
-  }
+//       @Transactional (readOnly = true)
+//     public void buscarAutor (String nombre){
+//      
+////      repoAutor.buscarPorNombre(nombre);
+//  }
     
     
 }

@@ -18,14 +18,14 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RepositorioEditorial extends JpaRepository <Editorial , String>{
-    
-     @Query ("SELECT l.editorial FROM Libro l WHERE l.editorial = :nombre")
-    public Editorial buscarPorNombre (@Param("titulo") String nombre);
-    
-    @Query ("SELECT l.editorial FROM Libro l")
-    public Editorial listarEditorial ();
-    
-    @Override
-        public List<Editorial> findAll();
+//    
+//     @Query ("SELECT l.editorial FROM Libro l WHERE l.editorial = :nombre")
+//    public Editorial buscarPorNombre (@Param("titulo") String nombre);
+//    
+//    @Query ("SELECT l.editorial FROM Libro l")
+//    public Editorial listarEditorial ();
+//    
+//    @Override
+//        public List<Editorial> findAll();
     
 }

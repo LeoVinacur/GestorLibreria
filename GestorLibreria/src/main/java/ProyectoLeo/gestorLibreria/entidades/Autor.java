@@ -24,7 +24,6 @@ public class Autor {
     private String id;
      
     @NotNull
-    @Column(unique=true)
     private String nombre;
     @NotNull
     private Boolean alta;

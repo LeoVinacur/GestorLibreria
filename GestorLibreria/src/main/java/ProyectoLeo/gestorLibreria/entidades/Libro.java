@@ -17,14 +17,13 @@ import javax.persistence.ManyToOne;
 public class Libro {
     
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue  (strategy = GenerationType.IDENTITY)
     private String id;
     
     @NotNull
     private long isbn;
     
     @NotNull
-    @Column (nullable = false)
     private String titulo;
     
     private Integer anio;
