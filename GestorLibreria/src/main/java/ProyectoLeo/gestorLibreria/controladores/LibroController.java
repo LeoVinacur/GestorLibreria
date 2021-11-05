@@ -8,18 +8,23 @@ package ProyectoLeo.gestorLibreria.controladores;
 import ProyectoLeo.gestorLibreria.entidades.Libro;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioLibro;
 import ProyectoLeo.gestorLibreria.servicios.LibroServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
  * @author LEOPOLDO
  */
 @Controller
+@RequestMapping("/")  // localhost:8080/
 public class LibroController {
     
     @Autowired
@@ -35,16 +40,27 @@ public String index(Model model){
 return "index";
 }
 
-@GetMapping("/crearIndex/")
+@GetMapping("/crearIndex")
 public String crear(){
-    
+   
     return "crearIndex" ;
 }
 
-@PostMapping("/save")
-public String guardar(@ModelAttribute Libro libro){
-  
-    return "index";
+@PostMapping("/crearIndex")
+public String guardar(ModelMap modelo, @RequestParam String titulo, @RequestParam String autor, @RequestParam String editorial, @RequestParam Integer anio ) throws Exception{
+   
+    ls.ingresarLibro(titulo, autor, editorial,  anio);
+    modelo.put("exito","Registro exitoso" );
+    return "crearIndex";
+}
+
+ 
+@GetMapping("/lista")
+public String listarLibros(Model model){
+    List<Libro> listadoLibros = ls.listarLibros();  // ??  repo.findAll();
+   model.addAttribute("mensaje", "Listado de Libros");
+   model.addAttribute("lista", listadoLibros);
+    return "lista";
 }
 
 

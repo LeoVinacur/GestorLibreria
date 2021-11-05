@@ -22,7 +22,12 @@ public interface RepositorioLibro extends JpaRepository <Libro , String>{
     public Libro listarLibros ();
     
     @Override
-        public List<Libro> findAll();
+       public List<Libro> findAll();
+        
+        // DA ERROR CUANDO CORRO EL PROGRAMA CON RUN 
+//        public void guardar(Libro libro);
+//        public void eliminar(String Id);
+//        public Libro buscar(String titulo);
 
     
 }

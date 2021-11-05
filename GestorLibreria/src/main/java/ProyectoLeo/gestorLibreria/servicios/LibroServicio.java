@@ -31,6 +31,26 @@ public class LibroServicio {
     
     @Autowired
     private RepositorioLibro repositorioLibro;
+
+// probando según el video     
+    public void guardar (Libro libro){
+        repositorioLibro.save(libro);
+    }
+  
+    //probando segun el video
+      public void encontrar (String id){
+          repositorioLibro.findById(id).orElse(null);
+      }
+      
+      //probando segun el video
+      public void borrar (String id){
+          repositorioLibro.deleteById(id);
+      }
+      
+       public void buscarLibro (String titulo){
+      
+      repositorioLibro.buscarPorTitulo(titulo);
+  }
  
     
     @Transactional 
@@ -110,12 +130,13 @@ public class LibroServicio {
     
     @Transactional (readOnly = true)
     public List<Libro> listarLibros (){
+    
         return repositorioLibro.findAll();
     }
            
-  public void buscarLibro (String titulo){
-      
-      repositorioLibro.buscarPorTitulo(titulo);
-  }
+
+  
+ 
     
 }
+

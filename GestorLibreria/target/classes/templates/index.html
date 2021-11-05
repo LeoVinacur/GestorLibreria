@@ -8,21 +8,21 @@ and open the template in the editor.
 <html xmlns:th= "http://www.thymeLeaf.org">
     
     <head>
-        <title>TODO supply a title</title>
+        <title>Gestor de Libreria</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body style="background-image: url(https://www.comunidadbaratz.com/wp-content/uploads/La-biblioteca-es-inclusion-social-e-igualdad-de-oportunidades.jpg) ">
          
         <h1> GESTOR DE LIBRERIA NUEVO </h1> 
+        
+        
+         <!-- a herf:="@{/crearIndex}" type="submit" class="btn btn-primary btn-sm" >Crear</a-->
       
              <div class="container">
              <h1 th:text="${titulo}"></h1>
              <p th:text="${libros}"></p>
-           
-      
-        
-        </div>
+              </div>
        
     </body>
 </html>
