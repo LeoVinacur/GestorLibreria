@@ -5,6 +5,9 @@
  */
 package ProyectoLeo.gestorLibreria.controladores;
 
+import ProyectoLeo.gestorLibreria.repositorios.RepositorioEditorial;
+import ProyectoLeo.gestorLibreria.repositorios.RepositorioLibro;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -13,5 +16,11 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class EditorialController {
+    
+     @Autowired
+    private RepositorioLibro repositorioLibro;
+    
+    @Autowired
+    private RepositorioEditorial repoEd;
     
 }

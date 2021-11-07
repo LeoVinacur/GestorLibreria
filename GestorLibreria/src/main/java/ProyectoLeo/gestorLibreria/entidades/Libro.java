@@ -17,11 +17,11 @@ import javax.persistence.ManyToOne;
 public class Libro {
     
     @Id
-    @GeneratedValue  (strategy = GenerationType.IDENTITY)
-    private String id;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
     
     @NotNull
-    private long isbn;
+    private Long isbn;
     
     @NotNull
     private String titulo;
@@ -34,38 +34,41 @@ public class Libro {
     
     @ManyToOne 
     private Autor autor;
+    
     @ManyToOne
     private Editorial editorial;
 
     public Libro() {
     }
-
-    public Libro(String id, long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, Boolean alta, Autor autor, Editorial editorial) {
+    
+//Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes,
+    public Libro(Long id, Long isbn, String titulo,  Boolean alta, Autor autor, Editorial editorial , Integer anio) {
         this.id = id;
         this.isbn = isbn;
         this.titulo = titulo;
-        this.anio = anio;
-        this.ejemplares = ejemplares;
-        this.ejemplaresPrestados = ejemplaresPrestados;
-        this.ejemplaresRestantes = ejemplaresRestantes;
+        
+       // this.ejemplares = ejemplares;
+        //this.ejemplaresPrestados = ejemplaresPrestados;
+       // this.ejemplaresRestantes = ejemplaresRestantes;
         this.alta = alta;
         this.autor = autor;
         this.editorial = editorial;
+        this.anio = anio;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getIsbn() {
+    public Long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
+    public void setIsbn(Long isbn) {
         this.isbn = isbn;
     }
 

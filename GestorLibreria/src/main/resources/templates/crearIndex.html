@@ -17,8 +17,33 @@ and open the template in the editor.
 
 
 
-        <div class="container">
-            <h2> CREAR LIBRO </h2> 
+        <div class="container ">
+ 
+            <div class="center">
+            <br>
+        <div class="card text-center w-50  " style="width: auto; margin: auto auto" >
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Principal</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/crearIndex">Ingresar Libro</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/lista">Lista de Libros</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Gestor de Librería</h5>
+    <p class="card-text"></p>
+    <a href="/" class="btn btn-primary btn-sm">Principal</a>
+    <a href="/lista" class="btn btn-primary btn-sm" >Lista de Libros</a>
+  </div>
+</div>
+</div>
+            <br>  
 
             <div class="card">
                 <div class="card-header">
@@ -27,32 +52,34 @@ and open the template in the editor.
                         <form th:action="@{/crearIndex}"  method="POST">
                             <div class="form-group row">
                                 <label class="col-md-2" for="titulo">Titulo del Libro</label>
-                                <input type="text" class="form-control form-control-sm col-md-6" id="tiulo" placeholder="Titulo del Libro">
+                                <input type="text" class="form-control form-control-sm col-md-6" name="titulo" placeholder="Titulo del Libro" value="titulo" required>
                                 <small> </small>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-2" for="autor">Autor</label>
-                                <input type="text" class="form-control form-control-sm col-md-6" id="tiulo" placeholder="Autor">
+                                <input type="text" class="form-control form-control-sm col-md-6" name="autor" placeholder="Autor" value="autor" required>
                                 <small> </small>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-2" for="editorial">Editorial</label>
-                                <input type="text" class="form-control form-control-sm col-md-6" id="tiulo" placeholder="Editorial">
+                                <label class="col-md-2"     for="editorial">Editorial</label>
+                                <input type="text" class="form-control form-control-sm col-md-6" name="editorial" placeholder="Editorial" value="editorial" required>
                                 <small> </small>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-2" for="anio">Año de publicacion</label>
-                                <input type="text" class="form-control form-control-sm col-md-6" id="tiulo" placeholder="Año de publicacion">
+                                <input type="number" class="form-control form-control-sm col-md-6" name="anio" placeholder="Año de publicacion" value="anio" required>
                                 <small> </small>
                             </div>
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+                                <a href="/lista" class="btn btn-primary btn-sm " role="button" aria-pressed="true">Lista de libros</a>
+                             <a href="/" class="btn btn-primary btn-sm " role="button" aria-pressed="true">Principal</a>
                             </div>
-
+                 
 
                         </form>
 

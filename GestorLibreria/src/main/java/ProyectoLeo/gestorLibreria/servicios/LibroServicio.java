@@ -15,20 +15,20 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Scanner;
+import javax.persistence.GenerationType;
 import org.springframework.transaction.annotation.Transactional;
  
-/**
- *
- * @author LEOPOLDO
- */
+
 @Service
 public class LibroServicio {  
     Scanner leer = new Scanner(System.in).useDelimiter("\n");
+   
+     @Autowired
     private AutorServicio autorService;
+     
+      @Autowired
     private EditorialServicio editorialService;
  
-    
-    
     @Autowired
     private RepositorioLibro repositorioLibro;
 
@@ -52,9 +52,12 @@ public class LibroServicio {
       repositorioLibro.buscarPorTitulo(titulo);
   }
  
+//    @Autowired
+//   private Libro libronuevo = new Libro();
     
+  
     @Transactional 
-    public void ingresarLibro (String titulo, String autor, String editorial, Integer anio ) throws Exception{
+    public void ingresarLibro (String titulo, String autor, String editorial, Integer anio ) throws errorServicio, Exception {
         
 //            System.out.println("Ingrese título, autor, editorial y año del libro que quiere ingresar");
 //                    String titulo = leer.next();
@@ -62,41 +65,36 @@ public class LibroServicio {
 //                    String editorial = leer.next();
 //                    Integer anio = leer.nextInt();
         
-            Libro libronuevo = new Libro();
+           
             Autor nuevoAutor = autorService.ingresarAutor(autor);
             Editorial nuevaEditorial = editorialService.ingresarEditorial(editorial);
+            Libro libronuevo = new Libro();
        
+            validar (titulo , autor, editorial, anio);
             
-        try {
-            
-            libronuevo.setTitulo(titulo);
-            libronuevo.setId(UUID.randomUUID().toString());
-           // libronuevo.setISBN(UUID.randomUUID().getLeastSignificantBits());
             libronuevo.setIsbn((long) (int) (Math.random() * 999999 + 1));
-            libronuevo.setAlta(Boolean.TRUE);
+            libronuevo.setTitulo(titulo);
+            
+           // libronuevo.setISBN(UUID.randomUUID().getLeastSignificantBits());
+          
+            libronuevo.setAlta(true);
             libronuevo.setAutor(nuevoAutor);
             libronuevo.setEditorial(nuevaEditorial);
             libronuevo.setAnio(anio);
       
         
-        repositorioLibro.save(libronuevo);
-            
-        } catch (Exception e) {
-        System.out.println("Revise los valores ingresados");
-        e.printStackTrace();
-        }
+       repositorioLibro.save(libronuevo);
        
     }
     
     @Transactional
-    public void modificarLibro  (String titulo , Autor autor , Editorial editorial, Integer anio) throws Exception{
+    public void modificarLibro  (String titulo , Autor autor , Editorial editorial, Integer anio)throws errorServicio{
         Libro libro = repositorioLibro.findById(titulo).get();
         
         
          if (titulo == null || titulo.isEmpty()) {
              throw new errorServicio ("El nombre no puede estar vacío");
          }
-         
           if (autor == null) {
              throw new errorServicio ("El nombre no puede estar vacío");
          }
@@ -117,7 +115,7 @@ public class LibroServicio {
     }
     
     @Transactional
-    public void borrarLibro (String titulo) throws Exception {
+    public void borrarLibro (String titulo) throws errorServicio  {
          Libro libro = repositorioLibro.findById(titulo).get();
            try {
          repositorioLibro.deleteById(titulo);
@@ -135,7 +133,23 @@ public class LibroServicio {
     }
            
 
-  
+  public void validar (String titulo, String autor, String editorial, Integer anio ) throws errorServicio {
+      
+    if (titulo == null || titulo.isEmpty()) {
+             throw new errorServicio ("El nombre no puede estar vacío");
+         }
+         
+          if (autor == null) {
+             throw new errorServicio ("El nombre no puede estar vacío");
+         }
+           if (editorial == null) {
+             throw new errorServicio ("El nombre no puede estar vacío");
+         }
+            if (anio == null) {
+             throw new errorServicio ("El nombre no puede estar vacío");
+         }
+      
+  }
  
     
 }

@@ -21,7 +21,7 @@ public class Autor {
     
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
      
     @NotNull
     private String nombre;
@@ -31,17 +31,17 @@ public class Autor {
     public Autor() {
     }
 
-    public Autor(String id, String nombre, Boolean alta) {
+    public Autor(Long id, String nombre, Boolean alta) {
         this.id = id;
         this.nombre = nombre;
         this.alta = alta;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

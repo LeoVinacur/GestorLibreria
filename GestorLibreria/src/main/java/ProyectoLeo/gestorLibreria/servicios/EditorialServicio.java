@@ -8,6 +8,7 @@ package ProyectoLeo.gestorLibreria.servicios;
 import ProyectoLeo.gestorLibreria.entidades.Editorial;
 import ProyectoLeo.gestorLibreria.errores.errorServicio;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioEditorial;
+import org.springframework.beans.factory.annotation.Autowired;
  
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,18 +20,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class EditorialServicio {
     
+    @Autowired
     private RepositorioEditorial repoEd;
+    
+//    @Autowired
+//    private  Editorial editorial = new Editorial();
     
     @Transactional
      public Editorial ingresarEditorial (String nombre) throws errorServicio{
         
-        Editorial editorial = new Editorial();
+        
+       Editorial editorial = new Editorial();
         
          if (nombre == null || nombre.isEmpty()) {
              throw new errorServicio ("El nombre no puede estar vacío");
          }
             
         editorial.setNombre(nombre);
+        editorial.setAlta(true);
         
         repoEd.save(editorial);
         
