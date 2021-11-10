@@ -1,0 +1,14 @@
+ProyectoLeo\gestorLibreria\entidades\Editorial.class
+ProyectoLeo\gestorLibreria\repositorios\RepositorioAutor.class
+ProyectoLeo\gestorLibreria\controladores\AutorController.class
+ProyectoLeo\gestorLibreria\controladores\EditorialController.class
+ProyectoLeo\gestorLibreria\entidades\Autor.class
+ProyectoLeo\gestorLibreria\repositorios\RepositorioLibro.class
+ProyectoLeo\gestorLibreria\servicios\LibroServicio.class
+ProyectoLeo\gestorLibreria\repositorios\RepositorioEditorial.class
+ProyectoLeo\gestorLibreria\errores\errorServicio.class
+ProyectoLeo\gestorLibreria\servicios\EditorialServicio.class
+ProyectoLeo\gestorLibreria\servicios\AutorServicio.class
+ProyectoLeo\gestorLibreria\GestorLibreriaApplication.class
+ProyectoLeo\gestorLibreria\entidades\Libro.class
+ProyectoLeo\gestorLibreria\controladores\LibroController.class

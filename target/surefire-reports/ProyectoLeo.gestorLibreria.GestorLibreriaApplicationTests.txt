@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ProyectoLeo.gestorLibreria.GestorLibreriaApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 55.753 s - in ProyectoLeo.gestorLibreria.GestorLibreriaApplicationTests
