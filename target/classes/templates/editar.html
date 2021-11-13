@@ -46,28 +46,29 @@ and open the template in the editor.
                 <div class="card-header" >
                     <div class="card-body"  >
  
-                        <form th:action="@{/editar/__{libro.id}__}"  method="get">
+                        <input hidden th:value="${id}" name="id">
+                        <form th:action="@{/editar/__${libro.id}__}"  method="POST">
                             <div class="form-group row">
                                 <label class="col-md-2" for="titulo">Titulo del Libro</label>
-                                <input type="text" class="form-control form-control-sm col-md-6" name="titulo" placeholder="Titulo del Libro" value="" required>
+                                <input th:value="${libro.titulo}" type="text" class="form-control form-control-sm col-md-6" name="titulo" placeholder="Titulo del Libro" value="" required>
                                 <small> </small>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-2" for="autor">Autor</label>
-                                <input type="text" class="form-control form-control-sm col-md-6" name="autor" placeholder="Autor" value="" required>
+                                <input th:value="${libro.autor}" type="text" class="form-control form-control-sm col-md-6" name="autor" placeholder="Autor" value="" required>
                                 <small> </small>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-2"     for="editorial">Editorial</label>
-                                <input type="text" class="form-control form-control-sm col-md-6" name="editorial" placeholder="Editorial" value="" required>
+                                <input th:value="${libro.editorial}" type="text" class="form-control form-control-sm col-md-6" name="editorial" placeholder="Editorial" value="" required>
                                 <small> </small>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-md-2" for="anio">Año de publicacion</label>
-                                <input type="number" class="form-control form-control-sm col-md-6" name="anio" placeholder= "año de publicación"  value="" required>
+                                <input th:value="${libro.anio}" type="number" class="form-control form-control-sm col-md-6" name="anio" placeholder= "año de publicación"  value="" required>
                                 <small> </small>
                             </div>
 

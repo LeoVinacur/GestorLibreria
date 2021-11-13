@@ -107,22 +107,31 @@ return "/buscar";
 //    }
 //    }
  
-@GetMapping ("/editar/{id}")
+    @PostMapping ("/editar/{id}")
 public String editar(  ModelMap modelo, @PathVariable  Long id , @RequestParam String titulo,
         @RequestParam String autor, @RequestParam String editorial, 
         @RequestParam Integer anio ) throws errorServicio, Exception{
-     
+   
     try {
         ls.modificarLibro(id, titulo, autor, editorial, anio);
         modelo.put("exito","Se ha modificado" );
-    return "/editar";
+    return "/lista";
     
     } catch (Exception e) {
         modelo.put("error","Falta algún dato" );
         e.printStackTrace();
-         return "crearIndex";
+         return "lista";
     } 
 }
+
+@GetMapping ("/editar/{id}")
+public String editar(  ModelMap modelo, @PathVariable  Long id){
+   
+    
+    modelo.addAttribute("libro" , repo.findById(id));
+         return "editar";
+    } 
+
 
 
 @GetMapping(value="/borrar/{id}")
