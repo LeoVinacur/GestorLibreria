@@ -11,6 +11,7 @@ import ProyectoLeo.gestorLibreria.entidades.Libro;
 import ProyectoLeo.gestorLibreria.errores.errorServicio;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioLibro;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,13 +39,14 @@ public class LibroServicio {
     }
   
     //probando segun el video
-      public void encontrar (String id){
-          repositorioLibro.findById(id).orElse(null);
+      public void encontrar (Long id){
+          repositorioLibro.findById(id);
       }
       
       //probando segun el video
-      public void borrar (String id){
+      public void borrar (Long id){
           repositorioLibro.deleteById(id);
+          
       }
       
        public String buscarLibro (String titulo){
@@ -59,7 +61,7 @@ public class LibroServicio {
     
   
     @Transactional 
-    public void ingresarLibro (String titulo, String autor, String editorial, Integer anio ) throws errorServicio, Exception {
+    public void ingresarLibro ( String titulo, String autor, String editorial, Integer anio ) throws errorServicio, Exception {
         
            
             Autor nuevoAutor = autorService.ingresarAutor(autor);
@@ -75,17 +77,21 @@ public class LibroServicio {
             libronuevo.setAutor(nuevoAutor);
             libronuevo.setEditorial(nuevaEditorial);
             libronuevo.setAnio(anio);
-      
-        
+       
        repositorioLibro.save(libronuevo);
        
     }
     
     @Transactional
-    public void modificarLibro  (String titulo , Autor autor , Editorial editorial, Integer anio)throws errorServicio{
-        Libro libro = repositorioLibro.findById(titulo).get();
+    public void modificarLibro  (Long id , String titulo , String autor , String editorial, Integer anio)throws errorServicio, Exception{
+       // Libro libro = repositorioLibro.findById(titulo).get();
+            Autor nuevoAutor = autorService.ingresarAutor(autor);
+            Editorial nuevaEditorial = editorialService.ingresarEditorial(editorial);
         
-        
+         Optional<Libro> ol = repositorioLibro.findAllById(id);
+            if (ol.isPresent()) {
+            Libro libro = ol.get();
+         
          if (titulo == null || titulo.isEmpty()) {
              throw new errorServicio ("El nombre no puede estar vacío");
          }
@@ -100,13 +106,14 @@ public class LibroServicio {
          }
       
         libro.setTitulo(titulo);
-        libro.setAutor(autor);
-        libro.setEditorial(editorial);
+        libro.setAutor(nuevoAutor);
+        libro.setEditorial(nuevaEditorial);
         libro.setAnio(anio);
         
         repositorioLibro.save(libro);
-     
+        }
     }
+  
     
     @Transactional
     public void borrarLibro (String titulo) throws errorServicio  {
@@ -122,9 +129,14 @@ public class LibroServicio {
     
     @Transactional (readOnly = true)
     public List<Libro> listarLibros (){
-    
-  
+     
         return repositorioLibro.findAll();
+    }
+    
+    // MODIFICAR POR ID
+     public Optional<Libro> modifID(Long id){
+     
+        return repositorioLibro.findAllById(id);
     }
            
 
@@ -145,6 +157,17 @@ public class LibroServicio {
          }
       
   }
+
+  @Transactional
+    public void delete(Long id) {
+      Optional<Libro> ol = repositorioLibro.findAllById(id);
+        if (ol.isPresent()) {
+            Libro libro = ol.get();
+           repositorioLibro.delete(libro);
+        }
+        
+    }
+    
  
     
 }
