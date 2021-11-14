@@ -19,7 +19,7 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" href="/">Principal</a>
+        <a class="nav-link" href="/">Principal</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/crearIndex">Ingresar Libro</a>
@@ -27,11 +27,15 @@
       <li class="nav-item">
         <a class="nav-link " href="/lista">Lista de Libros</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link active " href="/buscar">Buscar</a>
+      </li>
     </ul>
   </div>
   <div class="card-body">
     <h5 class="card-title">Gestor de Librería</h5>
     <p class="card-text"></p>
+    <a href="/" class="btn btn-primary btn-sm">Principal</a>
     <a href="/crearIndex" class="btn btn-primary btn-sm">Ingresar Libro</a>
     <a href="/lista" class="btn btn-primary btn-sm" >Lista de Libros</a>
   </div>
@@ -44,11 +48,11 @@
                 <div class="card-header" >
                     <div class="card-body"  >
  
-                        <form th:action="@{/buscar}"  method="POST">
+                        <form th:action="@{/buscar}"  method="GET">
                             <div class="form-group row">
-                                <label class="col-md-2" for="id">Buscar Libro</label>
+                                <label class="col-md-2" for="id">Buscar Libro por ID</label>
                                 
-                                <input type="text" class="form-control form-control-sm col-md-6" name="id" placeholder="ID del Libro" value="" required>
+                                <input type="text" class="form-control form-control-sm col-md-6" name="id" placeholder="ID" value="" required>
                                 <small> </small>
                             </div>
                             
@@ -63,6 +67,94 @@
                     </div>
                 </div>
             </div>
+        
+        <br>
+        
+        <div class=" card text-center" style="width: 50%  ; margin: auto auto"  >
+                <div class="card-header" >
+                    <div class="card-body"  >
+ 
+                        <form th:action="@{/buscar}"  method="GET">
+                            <div class="form-group row">
+                                <label class="col-md-2" for="titulo">Buscar Libro por Titulo</label>
+                                
+                                <input type="text" class="form-control form-control-sm col-md-6" name="titulo" placeholder="TITULO" value="" required>
+                                <small> </small>
+                            </div>
+                            
+                             <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                                
+                            </div>
+                 
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        
+        <br>
+       
+         <div class=" card text-center" style="width: 50%  ; margin: auto auto"  >
+                <div class="card-header" >
+                    <div class="card-body"  >
+ 
+                        <form th:action="@{/buscar}"  method="GET">
+                            <div class="form-group row">
+                                <label class="col-md-2" for="autor">Buscar Libro por Autor</label>
+                                
+                                <input type="text" class="form-control form-control-sm col-md-6" name="autor" placeholder="AUTOR" value="" required>
+                                <small> </small>
+                            </div>
+                            
+                             <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+                                
+                            </div>
+                 
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        
+        <br>
+        
+        <div class="center">
+        <div class="container">
+            
+         <table class="table table-striped table-light " >
+                <thead class="thead-dark ">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Autor</th>
+                         <th scope="col">Editorial</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">Acciones</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                     <tr th:each="lss:${libro}">
+                        <th scope="row" th:text="${lss.id}"></th>
+                        <td th:text="${lss.titulo}"></td>
+                        <td th:text="${lss.autor}"></td>
+                        <td th:text="${lss.editorial}"></td>
+                        <td th:text="${lss.anio}"></td>
+                        <td>
+                            <a th:href="@{/editar/}+${lss.id}" class="btn btn-warning btn-sm">Editar</a>    
+                            <a th:href="@{/borrar/}+${lss.id}" class="btn btn-danger btn-sm">Eliminar</a>
+                        
+                        </td>
+                    </tr>
+                                                          
+                </tbody>
+            </table>
+        </div>
+        </div>
         
       <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
