@@ -87,26 +87,17 @@ public String listarLibros(ModelMap model){
 @GetMapping("/buscar")
 public String buscar ( Model model , Long id , String titulo, String autor  ){
     List<Libro> listadoLibros =  ls.listarLibros();
+  
     for (Libro aux : listadoLibros) {
-        if (aux.getId() == id || aux.getTitulo().equals(titulo) || aux.getAutor().equals(autor)) {
+        if (aux.getId() == id || aux.getTitulo().equals(titulo) || aux.getAutor().getNombre().equals(autor) ) {
          model.addAttribute("libro" ,aux);         
     }
     }
+    
 return "/buscar";
 }
 
 
-//BUSCAR?? 
-// Libro l = repo.buscarPorId(id);
-//    model.addAttribute("libro" , l);
-
-//    List<Libro> listadoLibros =  ls.listarLibros();
-//    for (Libro aux : listadoLibros) {
-//        if (aux.getId() == id) {
-//         model.addAttribute("libro" , aux);     
-//    }
-//    }
- 
     @PostMapping ("/editar/{id}")
 public String editar(  ModelMap modelo, @PathVariable  Long id , @RequestParam String titulo,
         @RequestParam String autor, @RequestParam String editorial, 
@@ -115,7 +106,7 @@ public String editar(  ModelMap modelo, @PathVariable  Long id , @RequestParam S
     try {
         ls.modificarLibro(id, titulo, autor, editorial, anio);
         modelo.put("exito","Se ha modificado" );
-    return "lista";
+    return "redirect:/lista";
     
     } catch (Exception e) {
         modelo.put("error","Falta algún dato" );

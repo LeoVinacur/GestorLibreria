@@ -26,6 +26,7 @@ public interface RepositorioLibro extends JpaRepository <Libro , String>{
     @Query ("SELECT l FROM Libro l")
     public Libro listarLibros();
     
+    
     @Override   // METODO USADO EN EL CONTROLER
        public List<Libro> findAll();
        

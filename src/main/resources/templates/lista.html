@@ -72,9 +72,10 @@ and open the template in the editor.
                         <td th:text="${lss.editorial}"></td>
                         <td th:text="${lss.anio}"></td>
                         <td>
+                            <div class="modal-body">
                             <a th:href="@{/editar/}+${lss.id}" class="btn btn-warning btn-sm">Editar</a>    
-                            <a th:href="@{/borrar/}+${lss.id}" class="btn btn-danger btn-sm">Eliminar</a>
-                        
+                            <a th:href="@{/borrar/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
+                            </div>
                         </td>
                     </tr>
                                                           
