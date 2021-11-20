@@ -11,6 +11,7 @@ import ProyectoLeo.gestorLibreria.repositorios.RepositorioAutor;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioEditorial;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioLibro;
 import ProyectoLeo.gestorLibreria.servicios.LibroServicio;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,10 +88,11 @@ public String listarLibros(ModelMap model){
 @GetMapping("/buscar")
 public String buscar ( Model model , Long id , String titulo, String autor  ){
     List<Libro> listadoLibros =  ls.listarLibros();
-  
+    ArrayList<Libro> busqueda = new ArrayList<Libro>() ;
     for (Libro aux : listadoLibros) {
-        if (aux.getId() == id || aux.getTitulo().equals(titulo) || aux.getAutor().getNombre().equals(autor) ) {
-         model.addAttribute("libro" ,aux);         
+        if (aux.getId() == id || aux.getTitulo().equalsIgnoreCase(titulo) || aux.getAutor().getNombre().equalsIgnoreCase(autor) ) {
+            busqueda.add(aux);
+            model.addAttribute("libro" ,busqueda);         
     }
     }
     
