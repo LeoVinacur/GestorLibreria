@@ -6,11 +6,13 @@
 package ProyectoLeo.gestorLibreria.controladores;
 
 import ProyectoLeo.gestorLibreria.entidades.Libro;
+import ProyectoLeo.gestorLibreria.entidades.Usuario;
 import ProyectoLeo.gestorLibreria.errores.errorServicio;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioAutor;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioEditorial;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioLibro;
 import ProyectoLeo.gestorLibreria.servicios.LibroServicio;
+import ProyectoLeo.gestorLibreria.servicios.UsuarioServicio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +36,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")  // localhost:8080/
 public class LibroController {
     
+     @Autowired
+    private UsuarioServicio usuarioServicio;
+    
     @Autowired
     private RepositorioLibro repo;
     
@@ -53,7 +58,10 @@ public String index(Model model){
   
 return "index";
 }
- 
+  @GetMapping("/inicio")
+    public String inicio() {
+        return  "inicio";
+    }
 
 @GetMapping("/crearIndex")
 public String crear(){
@@ -75,7 +83,7 @@ public String guardar(ModelMap modelo, @RequestParam String titulo, @RequestPara
          return "crearIndex";
     } 
 }
-
+  
  
 @GetMapping("/lista")
 public String listarLibros(ModelMap model){

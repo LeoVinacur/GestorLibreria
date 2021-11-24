@@ -58,26 +58,26 @@ and open the template in the editor.
          <table class="table table-striped table-light " >
                 <thead class="thead-dark ">
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Titulo</th>
-                        <th scope="col">Autor</th>
-                         <th scope="col">Editorial</th>
-                        <th scope="col">Año</th>
-                        <th scope="col">Acciones</th>
+                      
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                         <th scope="col">e-mail</th>
+                       
+                        <th scope="col">Acciones (No andan, faltan los métodos)</th>
                        
                     </tr>
                 </thead>
                 <tbody>
-                     <tr th:each="lss:${lista}">
-                        <th scope="row" th:text="${lss.id}"></th>
-                        <td th:text="${lss.titulo}"></td>
-                        <td th:text="${lss.autor}"></td>
-                        <td th:text="${lss.editorial}"></td>
-                        <td th:text="${lss.anio}"></td>
+                     <tr th:each="lss:${usuarios}">
+                       
+                        <td th:text="${lss.nombre}"></td>
+                        <td th:text="${lss.apellido}"></td>
+                        <td th:text="${lss.mail}"></td>
+                        
                         <td>
                             <div class="modal-body">
-                            <a th:href="@{/editar/}+${lss.id}" class="btn btn-warning btn-sm">Editar</a>    
-                            <a th:href="@{/borrar/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
+                            <a th:href="@{/edit/}+${lss.id}" class="btn btn-warning btn-sm">Editar</a>    
+                            <a th:href="@{/borr/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
                             </div>
                         </td>
                     </tr>
