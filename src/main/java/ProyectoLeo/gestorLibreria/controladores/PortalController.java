@@ -14,8 +14,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,6 +45,26 @@ public class PortalController {
 //    public String inicio() {
 //        return "redirect:/inicio";
 //    }
+    
+       @PostMapping("/registrar")
+    public String registrar(ModelMap modelo,   @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String clave1, @RequestParam String clave2 ) throws errorServicio {
+
+        try {
+            usuarioServicio.registrar(  nombre, apellido, mail, clave1, clave2);
+        } catch (errorServicio error) {
+            modelo.put("error" , error.getMessage());
+            modelo.put ("nombre" , nombre);
+            modelo.put ("apellido" , apellido);
+            modelo.put ("mail" , mail);
+            return "index";
+        }
+        
+        modelo.put("titulo", "Bienvenido al Gestor de Librería de Leopoldo Vinacur ,"
+                + " Tu usuario fue registrado de manera satisfactoria");
+        
+       // modelo.put("descripcion", "Tu usuario fue registrado de manera satisfactoria");
+        return"inicio";
+    }
 
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model) {
@@ -54,20 +76,34 @@ public class PortalController {
         }
         return "redirect:/inicio";
     }
+    
+    
 
     @GetMapping("/registro")
     public String registro(ModelMap modelo) {
        
         return "registro.html";
     }
+    
+    @GetMapping(value="/borrarUsuario/{id}")
+public String borrarLibro(Model model , @PathVariable String id) throws errorServicio{
+    usuarioServicio.borrar(id);
+   return "redirect:/usuarios";
+      
+}
 
-    @PostMapping("/registrar")
-    public String registrar(ModelMap modelo,   @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String clave1, @RequestParam String clave2 ) throws errorServicio {
-
-        usuarioServicio.registrar(  nombre, apellido, mail, clave1, clave2);
-        modelo.put("titulo", "Bienvenido a Tinder de Mascotas");
-        modelo.put("descripcion", "Tu usuario fue registrado de manera satisfactoria");
-        return"redirect:/inicio";
-    }
+//     @GetMapping("/logincheck")
+//    public String registrar(ModelMap modelo,   String mail, @RequestParam String password  ) throws errorServicio {
+//
+//        
+//            if (usuarioServicio.loadUserByUsername(mail).getPassword().equals(password)) {
+//             return "/inicio";   
+//            }else  
+//         
+//            modelo.put("error" , "Usuario y/o contraseña incorrectos");
+//            return "index";
+//        
+//         
+//    }
 
 }

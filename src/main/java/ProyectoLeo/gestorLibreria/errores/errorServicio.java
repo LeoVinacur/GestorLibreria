@@ -14,4 +14,6 @@ public class errorServicio extends Exception {
     public errorServicio (String msn){
      super(msn);   
     }
+    
+    
 }

@@ -28,7 +28,7 @@ public class UsuarioServicio implements UserDetailsService {
     public void registrar(  String nombre, String apellido, String mail, String clave, String clave2 ) throws errorServicio  {
 
        
-    ///  validar(nombre, apellido, mail, clave, clave2 );
+     validar(nombre, apellido, mail, clave, clave2 );
 
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
@@ -48,7 +48,7 @@ public class UsuarioServicio implements UserDetailsService {
 
      
         
-     //   validar(nombre, apellido, mail, clave, clave2 );
+       validar(nombre, apellido, mail, clave, clave2 );
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -177,5 +177,15 @@ public class UsuarioServicio implements UserDetailsService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public void  login (String mail , String password){
+         if ( loadUserByUsername(mail).getPassword().equals(password)) {
+              
+            }else  {
+    }
   
+}
+    public void borrar (String mail){
+        usuarioRepositorio.deleteById(mail);
+    }
+
 }

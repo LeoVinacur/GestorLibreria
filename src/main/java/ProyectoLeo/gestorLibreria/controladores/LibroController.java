@@ -63,6 +63,8 @@ return "index";
         return  "inicio";
     }
 
+  
+    
 @GetMapping("/crearIndex")
 public String crear(){
    
@@ -75,7 +77,7 @@ public String guardar(ModelMap modelo, @RequestParam String titulo, @RequestPara
     try {
         ls.ingresarLibro(titulo, autor, editorial, anio);
         modelo.put("exito","Registro exitoso" );
-    return "index";
+    return "/inicio";
     
     } catch (Exception e) {
         modelo.put("error","Falta algún dato" );
@@ -142,5 +144,5 @@ public String borrarLibro(Model model , @PathVariable Long id) throws errorServi
       
 }
 
-
+ 
 }

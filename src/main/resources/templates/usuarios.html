@@ -8,7 +8,7 @@ and open the template in the editor.
 <html xmlns:th= "http://www.thymeLeaf.org">
 
     <head>
-        <title>Lista de Libros</title>
+        <title>Lista de Usuarios</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -63,21 +63,21 @@ and open the template in the editor.
                         <th scope="col">Apellido</th>
                          <th scope="col">e-mail</th>
                        
-                        <th scope="col">Acciones (No andan, faltan los métodos)</th>
+                        <th scope="col">Borrar</th>
                        
                     </tr>
                 </thead>
                 <tbody>
                      <tr th:each="lss:${usuarios}">
-                       
+                      
                         <td th:text="${lss.nombre}"></td>
                         <td th:text="${lss.apellido}"></td>
                         <td th:text="${lss.mail}"></td>
                         
                         <td>
                             <div class="modal-body">
-                            <a th:href="@{/edit/}+${lss.id}" class="btn btn-warning btn-sm">Editar</a>    
-                            <a th:href="@{/borr/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
+                              
+                            <a th:href="@{/borrarUsuario/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
                             </div>
                         </td>
                     </tr>
