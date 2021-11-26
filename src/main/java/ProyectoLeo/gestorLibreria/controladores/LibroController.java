@@ -6,7 +6,6 @@
 package ProyectoLeo.gestorLibreria.controladores;
 
 import ProyectoLeo.gestorLibreria.entidades.Libro;
-import ProyectoLeo.gestorLibreria.entidades.Usuario;
 import ProyectoLeo.gestorLibreria.errores.errorServicio;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioAutor;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioEditorial;
@@ -15,13 +14,11 @@ import ProyectoLeo.gestorLibreria.servicios.LibroServicio;
 import ProyectoLeo.gestorLibreria.servicios.UsuarioServicio;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,11 +50,17 @@ public class LibroController {
 
     
     @GetMapping("/")
-public String index(Model model){
-   
-  
+public String index (ModelMap model , @RequestParam (required = false) String error ,  @RequestParam (required = false) String logout ){
+  if(error != null){
+    model.put("error" , "nombre de usuario o clave incorrectos");
+  }
+        if (logout != null) {
+        model.put("logout" , "Ud. ha salido correctamente");     
+        }
 return "index";
 }
+ 
+ // @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
   @GetMapping("/inicio")
     public String inicio() {
         return  "inicio";
@@ -97,6 +100,7 @@ public String listarLibros(ModelMap model){
  
 @GetMapping("/buscar")
 public String buscar ( Model model , Long id , String titulo, String autor  ){
+    
     List<Libro> listadoLibros =  ls.listarLibros();
     ArrayList<Libro> busqueda = new ArrayList<Libro>() ;
     for (Libro aux : listadoLibros) {

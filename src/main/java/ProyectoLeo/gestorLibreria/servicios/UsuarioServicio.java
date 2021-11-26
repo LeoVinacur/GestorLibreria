@@ -7,15 +7,22 @@ package ProyectoLeo.gestorLibreria.servicios;
 import ProyectoLeo.gestorLibreria.entidades.Usuario;
 import ProyectoLeo.gestorLibreria.errores.errorServicio;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioUsuario;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
  import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -28,9 +35,10 @@ public class UsuarioServicio implements UserDetailsService {
     public void registrar(  String nombre, String apellido, String mail, String clave, String clave2 ) throws errorServicio  {
 
        
-     validar(nombre, apellido, mail, clave, clave2 );
+         validar(nombre, apellido, mail, clave, clave2 );
 
         Usuario usuario = new Usuario();
+        
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setMail(mail);
@@ -38,6 +46,9 @@ public class UsuarioServicio implements UserDetailsService {
 
         String encriptada = new BCryptPasswordEncoder().encode(clave);
         usuario.setClave(encriptada);
+        
+        
+      //  usuario.setFoto(foto);
         
         usuarioRepositorio.save(usuario);
 
@@ -117,7 +128,7 @@ public class UsuarioServicio implements UserDetailsService {
             throw new errorServicio("El mail no puede ser nulo");
         }
 
-        if (clave == null || clave.isEmpty() || clave.length() <= 6) {
+        if (clave == null || clave.isEmpty() || clave.length() <= 6 ) {
             throw new errorServicio("La clave del usuario no puede ser nula y tiene que tener mas de seis digitos");
         }
         if (!clave.equals(clave2)) {
@@ -127,43 +138,43 @@ public class UsuarioServicio implements UserDetailsService {
        
     }
 //
-//    @Override
-//    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-//        Usuario usuario = usuarioRepositorio.buscarPorMail(mail);
-//        if (usuario != null) {
-//            List<GrantedAuthority> permisos = new ArrayList<>();
-//                        
-//            GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_USUARIO_REGISTRADO");
-//            permisos.add(p1);
-//         
-//            //Esto me permite guardar el OBJETO USUARIO LOG, para luego ser utilizado
-//            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//            HttpSession session = attr.getRequest().getSession(true);
-//            session.setAttribute("usuariosession", usuario);
-//
-//            User user = new User(usuario.getMail(), usuario.getClave(), permisos);
-//            return user;
-//
-//        } else {
-//            return null;
-//        }
-//
-//    }
-//
-// @Transactional(readOnly=true)
-//    public Usuario buscarPorId(String id) throws ErrorServicio {
-//
-//        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-//        if (respuesta.isPresent()) {
-//
-//            Usuario usuario = respuesta.get();
-//            return usuario;
-//        } else {
-//
-//            throw new ErrorServicio("No se encontró el usuario solicitado");
-//        }
-//
-//    }
+    @Override
+    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepositorio.buscarPorMail(mail);
+        if (usuario != null) {
+            List<GrantedAuthority> permisos = new ArrayList<>();
+                        
+            GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_USUARIO_REGISTRADO");
+            permisos.add(p1);
+         
+            //Esto me permite guardar el OBJETO USUARIO LOG, para luego ser utilizado
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("usuariosession", usuario);
+
+            User user = new User(usuario.getMail(), usuario.getClave(), permisos);
+            return user;
+
+        } else {
+            return null;
+        }
+
+    }
+
+ @Transactional(readOnly=true)
+    public Usuario buscarPorId(String id) throws errorServicio {
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+            return usuario;
+        } else {
+
+            throw new errorServicio("No se encontró el usuario solicitado");
+        }
+
+    }
     
    @Transactional(readOnly=true)
     public List<Usuario> todosLosUsuarios(){
@@ -172,11 +183,7 @@ public class UsuarioServicio implements UserDetailsService {
         
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+ 
     public void  login (String mail , String password){
          if ( loadUserByUsername(mail).getPassword().equals(password)) {
               

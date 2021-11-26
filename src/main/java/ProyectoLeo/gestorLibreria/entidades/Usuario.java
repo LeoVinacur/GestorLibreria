@@ -30,6 +30,7 @@ public class Usuario {
     private String mail;
     private String clave;
     
+    
    
     public String getId() {
         return id;
@@ -70,6 +71,14 @@ public class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
+//    public String getFoto() {
+//        return foto;
+//    }
+//
+//    public void setFoto(String foto) {
+//        this.foto = foto;
+//    }
 
     
 

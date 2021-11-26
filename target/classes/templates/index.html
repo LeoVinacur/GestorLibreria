@@ -16,7 +16,36 @@ and open the template in the editor.
     </head>
     <body style="background-image: url(https://www.comunidadbaratz.com/wp-content/uploads/La-biblioteca-es-inclusion-social-e-igualdad-de-oportunidades.jpg) ">
 
- 
+  <nav class="navbar navbar-expand navbar-dark bg-primary">
+            <a class="navbar-brand " href="/">Gestor de Libros</a>
+            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/inicio">Inicio <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lista"> Libros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios"> Usuarios</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                           Menu Desplegable </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/lista">Lista de libros</a>
+                            <a class="dropdown-item" href="/crearIndex">Ingresar libro nuevo</a>
+                            <a class="dropdown-item" href="/buscar">Buscar libro</a>
+                            <a class="dropdown-item" href="/">Salir</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
         <br>
 
         <section>
@@ -25,9 +54,9 @@ and open the template in the editor.
                     <div class="card-body"  >
                         <h4 class="display-7">Ingresá al Gestor de Librería</h4>
                         <br>
-                   <p th:text="${errorLog}" style="color:red;"></p>
-                        <form action="/logincheck" method="POST">
-
+                    <!--form action="/logincheck" method="POST"-->   
+                        <form th:action="@{/logincheck}" method="POST">
+                          <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
                             <label>E-Mail</label>
                             <input type="email" class="form-control" name="username"/>
 
