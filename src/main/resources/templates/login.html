@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html xmlns:th= "http://www.thymeLeaf.org">
+
+    <head>
+        <title>LOGIN</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    </head>
+    <body>
+       <section>
+            <div class=" card text-center" style="width: 50%  ; margin: auto auto"  >
+                <div class="card-header" >
+                    <div class="card-body"  >
+                        <h4 class="display-7">Ingresá al Gestor de Librería</h4>
+                        <br>
+                    <form action="/logincheck" method="post">   
+                        <!--form th:action="@{/logincheck}" method="POST"-->
+                          <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
+                            <p th:if="${logout != null}" th:text="${logout}" style="color:greenyellow"></p>
+                            <label>E-Mail</label>
+                            <input type="email" class="form-control" name="username"/>
+
+                            <label>Clave</label>
+                            <input type="password" class="form-control" name="passsword"/>
+
+                            <br/><button type="submit" class="btn btn-primary">Ingresar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+       
+ <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+
+    </body>
+</html>
+
+

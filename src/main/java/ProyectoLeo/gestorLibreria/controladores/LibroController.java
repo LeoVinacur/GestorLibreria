@@ -49,31 +49,29 @@ public class LibroController {
      private RepositorioAutor repoAutor;
 
     
-    @GetMapping("/")
-public String index (ModelMap model , @RequestParam (required = false) String error ,  @RequestParam (required = false) String logout ){
-  if(error != null){
-    model.put("error" , "nombre de usuario o clave incorrectos");
-  }
-        if (logout != null) {
-        model.put("logout" , "Ud. ha salido correctamente");     
-        }
-return "index";
-}
+  
  
- // @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//    @GetMapping("/inicio")
+//    public String inicio() {
+//        return "redirect:/inicio";
+//    }
+
+  @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
   @GetMapping("/inicio")
     public String inicio() {
         return  "inicio";
     }
 
   
-    
+ @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")   
 @GetMapping("/crearIndex")
 public String crear(){
    
     return "crearIndex" ;
 }
 
+@PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
 @PostMapping("/crearIndex")
 public String guardar(ModelMap modelo, @RequestParam String titulo, @RequestParam String autor, @RequestParam String editorial, @RequestParam Integer anio ) throws Exception{
    
@@ -89,7 +87,7 @@ public String guardar(ModelMap modelo, @RequestParam String titulo, @RequestPara
     } 
 }
   
- 
+ @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
 @GetMapping("/lista")
 public String listarLibros(ModelMap model){
     List<Libro> listadoLibros =  ls.listarLibros();  // ??  repo.findAll();
@@ -98,6 +96,7 @@ public String listarLibros(ModelMap model){
     return "/lista";
 }
  
+
 @GetMapping("/buscar")
 public String buscar ( Model model , Long id , String titulo, String autor  ){
     

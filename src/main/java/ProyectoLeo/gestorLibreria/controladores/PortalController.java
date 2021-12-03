@@ -8,15 +8,21 @@ package ProyectoLeo.gestorLibreria.controladores;
  
 import ProyectoLeo.gestorLibreria.entidades.Usuario;
 import ProyectoLeo.gestorLibreria.errores.errorServicio;
+import ProyectoLeo.gestorLibreria.repositorios.RepositorioAutor;
+import ProyectoLeo.gestorLibreria.repositorios.RepositorioEditorial;
+import ProyectoLeo.gestorLibreria.repositorios.RepositorioLibro;
+import ProyectoLeo.gestorLibreria.servicios.LibroServicio;
 import ProyectoLeo.gestorLibreria.servicios.UsuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -26,10 +32,24 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class PortalController {
-   
+    
     @Autowired
     private UsuarioServicio usuarioServicio;
+    
+    @Autowired
+    private RepositorioLibro repo;
+    
+    @Autowired
+    private LibroServicio ls;
+    
+     @Autowired
+    private RepositorioEditorial repoEd;
+     
+     @Autowired
+     private RepositorioAutor repoAutor;
+     
  
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
  @GetMapping("/usuarios")
     public String usuarios(ModelMap modelo) {
         List<Usuario> usuariosActivos = usuarioServicio.todosLosUsuarios();
@@ -37,13 +57,27 @@ public class PortalController {
         modelo.addAttribute("usuarios", usuariosActivos);
         return "/usuarios";
     }
- 
-
-//    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
-//    @GetMapping("/inicio")
-//    public String inicio() {
-//        return "redirect:/inicio";
-//    }
+  
+     @PostMapping("/logincheck")
+    public String login (Model model){
+      model.addAttribute("usuario" , new Usuario());
+      return "login";
+    }
+    
+  @GetMapping(" /logincheck")
+public String index (ModelMap model , @RequestParam (required = false) String error ,  @RequestParam (required = false) String logout ){
+  if(error != null){
+    model.put("error" , "Hubo un problema en el login" );
+      System.out.println(error);
+    return "inicio";
+    
+  }
+        if (logout != null) {
+        model.put("logout" , "Ud. ha salido correctamente");     
+        }
+return "index";
+}
+//
     
        @PostMapping("/registrar")
     public String registrar(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String clave1, @RequestParam String clave2 ) throws errorServicio {
@@ -62,17 +96,19 @@ public class PortalController {
                 + nombre + ".  Tu usuario fue registrado de manera satisfactoria");  
         return"inicio";
     }
-
-//    @GetMapping("/login , /")
-//    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model) {
-//        if (error != null) {
-//            model.put("error", "Usuario o clave incorrectos");
-//        }
-//        if (logout != null) {
-//            model.put("logout", "Ha salido correctamente.");
-//        }
-//        return "redirect:/inicio";
-//    }
+ 
+        
+    @GetMapping({"/"})
+    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap modelo) {
+        if (error != null) {
+            modelo.put("error", "Usuario o clave incorrectos");
+          return "index"; 
+        }
+        if (logout != null) {
+            modelo.put("logout", "Ha salido correctamente.");
+        }
+        return "index";
+    }
  
     @GetMapping("/registro")
     public String registro(ModelMap modelo) {

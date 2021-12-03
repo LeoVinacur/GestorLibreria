@@ -15,79 +15,80 @@ and open the template in the editor.
 
     </head>
     <body style="background-image: url(https://www.comunidadbaratz.com/wp-content/uploads/La-biblioteca-es-inclusion-social-e-igualdad-de-oportunidades.jpg) ">
-<div align="right"  ><img src="https://cdn-icons-png.flaticon.com/128/3135/3135768.png" width="40" height="40"></div>
+        <div align="right"  ><img src="https://cdn-icons-png.flaticon.com/128/3135/3135768.png" width="40" height="40">
+            <h5 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h5>       
+            <form action="/logout" method="post"><button type="submit" class="btn btn-light btn-sm navbar-btn navbar-link">Logout</button></form>
+        </div>
         <div class="center">
             <br>
-        <div class="card text-center w-50" style="width: auto; margin: auto auto" >
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link" href="/inicio">Principal</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/crearIndex">Ingresar Libro</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active " href="/lista">Lista de Libros</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="/buscar">Buscar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="/">Salir</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Gestor de Librería</h5>
-    <p class="card-text"></p>
-    <a href="/inicio" class="btn btn-primary btn-sm">Principal</a>
-    <a href="/crearIndex" class="btn btn-primary btn-sm" >Ingresar Libro</a>
-      <a href="/buscar" class="btn btn-primary btn-sm" >Buscar</a>
-  </div>
-</div>
-</div>
-        
-        
-      
-       <br>
-       
+            <div class="card text-center w-50" style="width: auto; margin: auto auto" >
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/inicio">Principal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/crearIndex">Ingresar Libro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active " href="/lista">Lista de Libros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/buscar">Buscar</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Gestor de Librería</h5>
+                    <p class="card-text"></p>
+                    <a href="/inicio" class="btn btn-primary btn-sm">Principal</a>
+                    <a href="/crearIndex" class="btn btn-primary btn-sm" >Ingresar Libro</a>
+                    <a href="/buscar" class="btn btn-primary btn-sm" >Buscar</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <br>
+
         <div class="center">
-        <div class="container">
-            
-         <table class="table table-striped table-light " >
-                <thead class="thead-dark ">
-                    <tr>
-                      
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                         <th scope="col">e-mail</th>                     
-                        <th scope="col">Borrar</th>
-                       
-                    </tr>
-                </thead>
-                <tbody>
-                     <tr th:each="lss:${usuarios}">
-                      
-                        <td th:text="${lss.nombre}"></td>
-                        <td th:text="${lss.apellido}"></td>
-                        <td th:text="${lss.mail}"></td>
-                        
-                        <td>
-                            <div class="modal-body">
-                              
-                            <a th:href="@{/borrarUsuario/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
-                                                          
-                </tbody>
-            </table>
+            <div class="container">
+
+                <table class="table table-striped table-light " >
+                    <thead class="thead-dark ">
+                        <tr>
+
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">e-mail</th>                     
+                            <th scope="col">Borrar</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="lss:${usuarios}">
+
+                            <td th:text="${lss.nombre}"></td>
+                            <td th:text="${lss.apellido}"></td>
+                            <td th:text="${lss.mail}"></td>
+
+                            <td>
+                                <div class="modal-body">
+
+                                    <a th:href="@{/borrarUsuario/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
-        
- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 
     </body>

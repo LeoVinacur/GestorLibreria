@@ -14,85 +14,84 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
     </head>
-   
-   <body style="background-image: url(https://www.comunidadbaratz.com/wp-content/uploads/La-biblioteca-es-inclusion-social-e-igualdad-de-oportunidades.jpg) ">
-      
-       
-       <div align="right"  ><img src="https://cdn-icons-png.flaticon.com/128/3135/3135768.png" width="40" height="40"></div>
 
+    <body style="background-image: url(https://www.comunidadbaratz.com/wp-content/uploads/La-biblioteca-es-inclusion-social-e-igualdad-de-oportunidades.jpg) ">
+
+        <div align="right"  ><img src="https://cdn-icons-png.flaticon.com/128/3135/3135768.png" width="40" height="40">
+            <h5 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h5>       
+            <form action="/logout" method="post"><button type="submit" class="btn btn-light btn-sm navbar-btn navbar-link">Logout</button></form>
+        </div>
         <div class="center">
             <br>
-        <div class="card text-center w-50" style="width: auto; margin: auto auto" >
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link" href="/inicio">Principal</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/crearIndex">Ingresar Libro</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active " href="/lista">Lista de Libros</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="/buscar">Buscar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="/">Salir</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Gestor de Librería</h5>
-    <p class="card-text"></p>
-    <a href="/inicio" class="btn btn-primary btn-sm">Principal</a>
-    <a href="/crearIndex" class="btn btn-primary btn-sm" >Ingresar Libro</a>
-      <a href="/buscar" class="btn btn-primary btn-sm" >Buscar</a>
-  </div>
-</div>
-</div>
-        
-        
-      
-       <br>
-       
+            <div class="card text-center w-50" style="width: auto; margin: auto auto" >
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/inicio">Principal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/crearIndex">Ingresar Libro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active " href="/lista">Lista de Libros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/buscar">Buscar</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Gestor de Librería</h5>
+                    <p class="card-text"></p>
+                    <a href="/inicio" class="btn btn-primary btn-sm">Principal</a>
+                    <a href="/crearIndex" class="btn btn-primary btn-sm" >Ingresar Libro</a>
+                    <a href="/buscar" class="btn btn-primary btn-sm" >Buscar</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <br>
+
         <div class="center">
-        <div class="container">
-            
-         <table class="table table-striped table-light " >
-                <thead class="thead-dark ">
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Titulo</th>
-                        <th scope="col">Autor</th>
-                         <th scope="col">Editorial</th>
-                        <th scope="col">Año</th>
-                        <th scope="col">Acciones</th>
-                       
-                    </tr>
-                </thead>
-                <tbody>
-                     <tr th:each="lss:${lista}">
-                        <th scope="row" th:text="${lss.id}"></th>
-                        <td th:text="${lss.titulo}"></td>
-                        <td th:text="${lss.autor}"></td>
-                        <td th:text="${lss.editorial}"></td>
-                        <td th:text="${lss.anio}"></td>
-                        <td>
-                            <div class="modal-body">
-                            <a th:href="@{/editar/}+${lss.id}" class="btn btn-warning btn-sm">Editar</a>    
-                            <a th:href="@{/borrar/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
-                                                          
-                </tbody>
-            </table>
+            <div class="container">
+
+                <table class="table table-striped table-light " >
+                    <thead class="thead-dark ">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Autor</th>
+                            <th scope="col">Editorial</th>
+                            <th scope="col">Año</th>
+                            <th scope="col">Acciones</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="lss:${lista}">
+                            <th scope="row" th:text="${lss.id}"></th>
+                            <td th:text="${lss.titulo}"></td>
+                            <td th:text="${lss.autor}"></td>
+                            <td th:text="${lss.editorial}"></td>
+                            <td th:text="${lss.anio}"></td>
+                            <td>
+                                <div class="modal-body">
+                                    <a th:href="@{/editar/}+${lss.id}" class="btn btn-warning btn-sm">Editar</a>    
+                                    <a th:href="@{/borrar/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
-        
- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 
     </body>
