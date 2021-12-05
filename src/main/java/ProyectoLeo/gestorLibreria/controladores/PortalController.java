@@ -11,6 +11,7 @@ import ProyectoLeo.gestorLibreria.errores.errorServicio;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioAutor;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioEditorial;
 import ProyectoLeo.gestorLibreria.repositorios.RepositorioLibro;
+import ProyectoLeo.gestorLibreria.repositorios.RepositorioUsuario;
 import ProyectoLeo.gestorLibreria.servicios.LibroServicio;
 import ProyectoLeo.gestorLibreria.servicios.UsuarioServicio;
 import java.util.List;
@@ -37,17 +38,8 @@ public class PortalController {
     private UsuarioServicio usuarioServicio;
     
     @Autowired
-    private RepositorioLibro repo;
-    
-    @Autowired
-    private LibroServicio ls;
-    
-     @Autowired
-    private RepositorioEditorial repoEd;
-     
-     @Autowired
-     private RepositorioAutor repoAutor;
-     
+    private RepositorioUsuario usuarioRepo;
+   
  
     @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
  @GetMapping("/usuarios")
@@ -92,8 +84,8 @@ return "index";
             return "index";
         }
         
-        modelo.put("titulo", "Bienvenido al Gestor de Librería de Leopoldo Vinacur, "
-                + nombre + ".  Tu usuario fue registrado de manera satisfactoria");  
+        modelo.put("titulo", "Bienvenido al Gestor de Librería,  "
+                + nombre + " " + apellido +  ".   Tu usuario fue registrado de manera satisfactoria");  
         return"inicio";
     }
  

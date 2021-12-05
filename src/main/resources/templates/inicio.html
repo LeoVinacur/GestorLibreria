@@ -52,11 +52,15 @@ and open the template in the editor.
             <form action="/logout" method="post"><button type="submit" class="btn btn-light btn-sm navbar-btn navbar-link">Logout</button></form>
         </div>
 
-
-        <div style="display: contents; text-align: left; "> 
-            <h3 class="display-18" th:text="${titulo}" style=" color:red;  "></h3> 
+ 
+        
+        <div class="container " style="background-color: gainsboro ;text-align: center; width:  fit-content" >
+  <div class="card-body">
+    <h6 class="display-10" th:text="${titulo}" style=" color:red;  "></h6> 
             <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
-        </div>
+  </div>
+</div>
+        
     </p>    
     <br>
     <section>

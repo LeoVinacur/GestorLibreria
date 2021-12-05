@@ -10,47 +10,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
- 
- 
- 
+
 
 @Configuration
 @EnableWebSecurity
  @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SeguridadConfiguracion  extends WebSecurityConfigurerAdapter   {
      
-    
-    //Segun un video , lo de abajo
-//     String[] resources = new String[]{
-//            "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**"
-//    };
      
- 
-         
           @Override
     protected void configure(HttpSecurity http) throws Exception {
         
-        //SEGUN VIDEO de YOUTUBE
-//        http
-//            .authorizeRequests()
-//	     
-//	        .antMatchers("/","/index").permitAll()
-//	        .antMatchers("/admin*").access("hasRole('ADMIN')")
-//	        .antMatchers("/user*").access("hasRole('USER') or hasRole('ADMIN')")
-//                .anyRequest().authenticated()
-//                .and()
-//            .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
-//                .defaultSuccessUrl("/inicio")
-//                .failureUrl("/login?error=true")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .and()
-//            .logout()
-//                .permitAll()
-//                .logoutSuccessUrl("/login?logout");
-//    }
+      
     
         http
                 .authorizeRequests()
@@ -93,7 +64,35 @@ public class SeguridadConfiguracion  extends WebSecurityConfigurerAdapter   {
      public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception {
          auth.userDetailsService(usuarioServicio).passwordEncoder(new BCryptPasswordEncoder());
      }
-   
+     
+        
+    //Segun un video , lo de abajo
+//     String[] resources = new String[]{
+//            "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**"
+//    };
+     
+ 
+     //SEGUN VIDEO de YOUTUBE
+//        http
+//            .authorizeRequests()
+//	     
+//	        .antMatchers("/","/index").permitAll()
+//	        .antMatchers("/admin*").access("hasRole('ADMIN')")
+//	        .antMatchers("/user*").access("hasRole('USER') or hasRole('ADMIN')")
+//                .anyRequest().authenticated()
+//                .and()
+//            .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .defaultSuccessUrl("/inicio")
+//                .failureUrl("/login?error=true")
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                .and()
+//            .logout()
+//                .permitAll()
+//                .logoutSuccessUrl("/login?logout");
+//    }
 }
 
     

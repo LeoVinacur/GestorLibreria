@@ -27,12 +27,13 @@ and open the template in the editor.
         
         <br>
 
-
-        <div style="display: contents; text-align: left; "> 
-            <h4><p th:if="${error != null}" th:text="${error}" style="color:red"></p></h4>
-            <p th:if="${logout != null}" th:text="${logout}" style="color:greenyellow"></p>
-        </div>
-
+               <div class="container " style="background-color: gainsboro ;text-align: center; width:  fit-content" >
+  <div class="card-body">
+      <h6><p th:if="${error != null}" th:text="${error}" style="color:red"></p></h6>
+      <h6>   <p th:if="${logout != null}" th:text="${logout}" style="color:greenyellow"></p></h6>
+  </div>
+</div>
+ 
         <br>
 
         <div style="display: flex; justify-content: space-evenly;">

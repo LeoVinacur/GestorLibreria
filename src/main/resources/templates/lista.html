@@ -50,8 +50,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-
-
+ 
 
         <br>
 
@@ -81,6 +80,7 @@ and open the template in the editor.
                                 <div class="modal-body">
                                     <a th:href="@{/editar/}+${lss.id}" class="btn btn-warning btn-sm">Editar</a>    
                                     <a th:href="@{/borrar/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
+                                <p th:text="${error}" style="color:red;"></p>
                                 </div>
                             </td>
                         </tr>

@@ -141,7 +141,8 @@ public String editar(  ModelMap modelo, @PathVariable  Long id){
 
 
 @GetMapping(value="/borrar/{id}")
-public String borrarLibro(Model model , @PathVariable Long id) throws errorServicio{
+public String borrarLibro(ModelMap model , @PathVariable Long id) throws errorServicio{
+     model.put("error","Se ha borrado el libro" );
     ls.delete(id);
    return "redirect:/lista";
       
