@@ -114,6 +114,34 @@ public String borrarLibro(Model model , @PathVariable String id) throws errorSer
    return "redirect:/usuarios";
       
 }
- 
+   @PostMapping ("/editarUsuario/{mail}")
+public String editar(  ModelMap modelo,  @RequestParam String nombre,
+        @RequestParam String apellido, @RequestParam String mail, 
+        @RequestParam String clave1 ,  @RequestParam String clave2 ) throws errorServicio, Exception{
+   
+    try {
+        usuarioServicio.modificar(  nombre , apellido , mail , clave1 , clave2); 
+        modelo.put("exito","Se ha modificado" );
+    return "redirect:/usuarios";
+    
+    } catch (errorServicio error) {
+            modelo.put("error" , error.getMessage());
+            modelo.put ("nombre" , nombre);
+            modelo.put ("apellido" , apellido);
+            modelo.put ("mail" , mail);
+         return "usuarios";
+    } 
+}
+
+@GetMapping ("/editarUsuario/{mail}")
+public String editar(  ModelMap modelo, @PathVariable  String mail){
+    
+     
+    modelo.addAttribute("usuario" , usuarioRepo.buscarPorMail(mail));
+    
+         return "editarUsuario";
+    } 
+
+
 
 }

@@ -55,18 +55,18 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificar(  String id, String nombre, String apellido, String mail, String clave, String clave2 ) throws errorServicio {
+    public void modificar(   String nombre, String apellido, String mail, String clave, String clave2 ) throws errorServicio {
 
      
-        
        validar(nombre, apellido, mail, clave, clave2 );
 
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-
-            Usuario usuario = respuesta.get();
-            usuario.setApellido(apellido);
+     //   ArrayList<Usuario> busqueda = new ArrayList<Usuario>() ;
+     
+        Usuario usuario = usuarioRepositorio.buscarPorMail(mail);
+        System.out.println(usuario);
+        
             usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
             usuario.setMail(mail);
          
             String encriptada = new BCryptPasswordEncoder().encode(clave);
@@ -75,11 +75,31 @@ public class UsuarioServicio implements UserDetailsService {
          
 
             usuarioRepositorio.save(usuario);
-        } else {
+        
 
-            
+    }
+        public void validar(String nombre, String apellido, String mail, String clave, String clave2 ) throws errorServicio {
+
+        if (nombre == null || nombre.isEmpty()) {
+            throw new errorServicio("El nombre del usuario no puede ser nulo");
         }
 
+        if (apellido == null || apellido.isEmpty()) {
+            throw new errorServicio("El apellido del usuario no puede ser nulo");
+        }
+
+        if (mail == null || mail.isEmpty()) {
+            throw new errorServicio("El mail no puede ser nulo");
+        }
+
+        if (clave == null || clave.isEmpty() || clave.length() <= 6 ) {
+            throw new errorServicio("La clave del usuario no puede ser nula y tiene que tener mas de seis digitos");
+        }
+        if (!clave.equals(clave2)) {
+            throw new errorServicio("Las claves deben ser iguales");
+        }
+
+       
     }
 
 //    @Transactional
@@ -114,29 +134,7 @@ public class UsuarioServicio implements UserDetailsService {
 //
 //    }
 
-    public void validar(String nombre, String apellido, String mail, String clave, String clave2 ) throws errorServicio {
 
-        if (nombre == null || nombre.isEmpty()) {
-            throw new errorServicio("El nombre del usuario no puede ser nulo");
-        }
-
-        if (apellido == null || apellido.isEmpty()) {
-            throw new errorServicio("El apellido del usuario no puede ser nulo");
-        }
-
-        if (mail == null || mail.isEmpty()) {
-            throw new errorServicio("El mail no puede ser nulo");
-        }
-
-        if (clave == null || clave.isEmpty() || clave.length() <= 6 ) {
-            throw new errorServicio("La clave del usuario no puede ser nula y tiene que tener mas de seis digitos");
-        }
-        if (!clave.equals(clave2)) {
-            throw new errorServicio("Las claves deben ser iguales");
-        }
-
-       
-    }
 //
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
@@ -164,7 +162,7 @@ public class UsuarioServicio implements UserDetailsService {
  @Transactional(readOnly=true)
     public Usuario buscarPorId(String id) throws errorServicio {
 
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        Optional<Usuario> respuesta = (Optional<Usuario>) usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
 
             Usuario usuario = respuesta.get();
@@ -179,7 +177,7 @@ public class UsuarioServicio implements UserDetailsService {
    @Transactional(readOnly=true)
     public List<Usuario> todosLosUsuarios(){
  
-        return usuarioRepositorio.findAll();
+        return (List<Usuario>) usuarioRepositorio.findAll();
         
     }
 

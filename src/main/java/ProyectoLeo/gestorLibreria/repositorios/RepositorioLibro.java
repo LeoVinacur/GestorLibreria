@@ -29,14 +29,7 @@ public interface RepositorioLibro extends JpaRepository <Libro , String>{
     
     @Override   // METODO USADO EN EL CONTROLER
        public List<Libro> findAll();
-       
-       
-       
-        
-        // DA ERROR CUANDO CORRO EL PROGRAMA CON RUN 
- //      public void guardar(Libro libro);
-//        public void eliminar(String Id);
-//        public Libro buscar(String titulo);
+   
 
     public Optional<Libro> findAllById(Long id);
 

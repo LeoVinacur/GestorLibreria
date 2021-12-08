@@ -18,7 +18,7 @@ and open the template in the editor.
     <body style="background-image: url(https://www.comunidadbaratz.com/wp-content/uploads/La-biblioteca-es-inclusion-social-e-igualdad-de-oportunidades.jpg) ">
 
         <div align="right"  ><img src="https://cdn-icons-png.flaticon.com/128/3135/3135768.png" width="40" height="40">
-            <h5 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h5>       
+            <h6 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h6>       
             <form action="/logout" method="post"><button type="submit" class="btn btn-light btn-sm navbar-btn navbar-link">Logout</button></form>
         </div>
         <div class="center">

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th= "http://www.thymeLeaf.org">
+
+    <head>
+        <title>Editar Libro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    </head>
+    <body style="background-image: url(https://www.comunidadbaratz.com/wp-content/uploads/La-biblioteca-es-inclusion-social-e-igualdad-de-oportunidades.jpg) ">
+        <nav class="navbar navbar-expand navbar-dark bg-primary">
+            <a class="navbar-brand " href="/">Gestor de Libros</a>
+            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/inicio">Inicio <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lista"> Libros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios"> Usuarios</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                            Menu Desplegable </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/lista">Lista de libros</a>
+                            <a class="dropdown-item" href="/crearIndex">Ingresar libro nuevo</a>
+                            <a class="dropdown-item" href="/buscar">Buscar libro</a>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div align="right"  ><img src="https://cdn-icons-png.flaticon.com/128/3135/3135768.png" width="40" height="40">
+
+
+            <h6 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h6>       
+            <form action="/logout" method="post"><button type="submit" class="btn btn-light btn-sm navbar-btn navbar-link">Logout</button></form>
+        </div>
+        <div class="center">
+            <br>
+            <div class="card text-center w-50  " style="width: auto; margin: auto auto" >
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/inicio">Principal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/crearIndex">Ingresar Libro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/lista">Lista de Libros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/buscar">Buscar</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Gestor de Librería</h5>
+                    <p class="card-text"></p>
+                    <a href="/inicio" class="btn btn-primary btn-sm">Principal</a>
+                    <a href="/crearIndex" class="btn btn-primary btn-sm">Ingresar Libro</a>
+                    <a href="/lista" class="btn btn-primary btn-sm" >Lista de Libros</a>
+                    <a href="/buscar" class="btn btn-primary btn-sm" >Buscar</a>
+                </div>
+            </div>
+            <div class="container " style="background-color: gainsboro ;text-align: center; width:  fit-content" >
+                <div class="card-body">
+                    <h6><p th:if="${error != null}" th:text="${error}" style="color:red"></p></h6>
+                    <h6>   <p th:if="${logout != null}" th:text="${logout}" style="color:greenyellow"></p></h6>
+                </div>
+            </div>
+            <br>
+            <section>
+                <div class=" card text-center" style="width: 70%  ; margin: auto auto"  >
+                    <div class="card-header" >
+                        <div class="card-body"  >
+
+                            <h4 class="display-7">Editar Usuario</h4>
+                            <br>
+                            <p th:if="${e != null}" th:text="${error}" style="color:red;"></p>
+
+
+                            <input hidden th:value="${id}" name="id">
+                            <form th:action="@{/editarUsuario/__${usuario.mail}__}"  method="POST">
+
+                                <div class="form-group row">
+                                    <label class="col-md-2" for="autor">Nombre</label>
+                                    <input th:value="${usuario.nombre}" type="text" class="form-control form-control-sm col-md-6" name="nombre" placeholder="Nombre" value="" required>
+                                    <small> </small>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-2" for="apellidp">Apellido</label>
+                                    <input type="text" class="form-control form-control-sm col-md-6" name="apellido" placeholder="Apellido" value="" required th:value="${usuario.apellido}" />
+                                    <small> </small>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2" for="mail">E-Mail </label>
+                                    <input type="email" class="form-control form-control-sm col-md-6" name="mail"  placeholder="E-Mail" value="" required th:value="${usuario.mail}"  />
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2" for="clave">Clave</label>
+                                    <input type="password" class="form-control form-control-sm col-md-6" name="clave1"  placeholder="Clave" value="" required th:value="${usuario.clave}" />
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2" for="clave">Repetir Clave</label>
+                                    <input type="password" class="form-control form-control-sm col-md-6" name="clave2"  placeholder="Repetir clave" value="" required th:value="${usuario.clave}"/>
+                                </div>
+                                <br/><button type="submit" class="btn btn-primary">Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+    </body>
+</html>

@@ -15,8 +15,9 @@ and open the template in the editor.
 
     </head>
     <body style="background-image: url(https://www.comunidadbaratz.com/wp-content/uploads/La-biblioteca-es-inclusion-social-e-igualdad-de-oportunidades.jpg) ">
+        
         <div align="right"  ><img src="https://cdn-icons-png.flaticon.com/128/3135/3135768.png" width="40" height="40">
-            <h5 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h5>       
+            <h6 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre + ' ' +session.usuariosession.apellido}"></h6>       
             <form action="/logout" method="post"><button type="submit" class="btn btn-light btn-sm navbar-btn navbar-link">Logout</button></form>
         </div>
         <div class="center">
@@ -45,11 +46,17 @@ and open the template in the editor.
                     <a href="/inicio" class="btn btn-primary btn-sm">Principal</a>
                     <a href="/crearIndex" class="btn btn-primary btn-sm" >Ingresar Libro</a>
                     <a href="/buscar" class="btn btn-primary btn-sm" >Buscar</a>
+                    <a href="/usuarios" class="btn btn-primary btn-sm" >Usuarios</a>
                 </div>
             </div>
         </div>
-
-
+        <br>
+        <div  class="container " style=" background-color: gainsboro ; text-align: center; width:  fit-content"  >
+            <div class="card-body">
+                <h6>   <p  th:if="${error != null}" th:text="${error}" style="color:red"></p></h6>
+                <h6>   <p th:if="${logout != null}" th:text="${logout}" style="color:greenyellow"></p></h6>
+            </div>  
+        </div>
 
         <br>
 
@@ -63,7 +70,7 @@ and open the template in the editor.
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">e-mail</th>                     
-                            <th scope="col">Borrar</th>
+                            <th scope="col">Acciones</th>
 
                         </tr>
                     </thead>
@@ -76,6 +83,7 @@ and open the template in the editor.
 
                             <td>
                                 <div class="modal-body">
+                                    <a th:href="@{/editarUsuario/}+${lss.mail}" class="btn btn-warning btn-sm">Editar</a> 
                                     <a th:href="@{/borrarUsuario/}+${lss.id}"  class="btn btn-danger btn-sm " >Eliminar</a>
                                 </div>
                             </td>
